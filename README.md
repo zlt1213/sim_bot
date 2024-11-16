@@ -9,7 +9,7 @@ Currently supported:
 
 
 ## Usage
-![alt text](https://github.com/[Alexander-Levy]/[sim_bot]/blob/[humble]/simulaton_sample.png?raw=true)
+![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble/media/simulaton_sample.png "Simulation")
 
 ### Differential Drive Robot
 The differential drive robot simulation can be run with the following command:
