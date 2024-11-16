@@ -84,8 +84,8 @@ Package is still being worked on and not yet ready, will be adding these feature
  - [x] add depth camera to sim
  - [x] add slam to sim
  - [x] add navigation to sim
+ - [x] fixed navigation pose bug 
 ### Pending
- - [ ] fixed navigation pose bug
  - [ ] add ackerman-type robot support 
  - [ ] add 3dlidar
  - [ ] port to foxy

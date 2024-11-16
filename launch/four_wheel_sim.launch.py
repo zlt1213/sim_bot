@@ -98,7 +98,7 @@ def generate_launch_description():
     )
     
     # Launch Rviz with diff bot rviz file
-    rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'four_wheel_bot.rviz')
+    rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'bot.rviz')
     rviz2 = GroupAction(
         condition=IfCondition(rviz),
         actions=[Node(
