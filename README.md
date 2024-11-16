@@ -38,13 +38,15 @@ Config      Options         Default     Description
 world:=     <path_to_world> test.world  Relative path to test world                       
 headless:=  True/False      False       Gazebo is visualized if False
 rviz:=      True/False      True        Rviz is opened if True
-slam:=      True/False      True        Slam is run if True
+slam:=      True/False      True        Localization and mapping is run if True
+nav:=       True/False      True        Navigation stack is launched if True
 ```
 
 ## Install
 To use this package please download all of the necesary dependencies first and then follow these steps
 ```bash
-cd ~/<path_to_your_workspace>/src
+mkdir -p sim_ws/src
+cd sim_ws/src
 git clone https://github.com/Alexander-Levy/sim_bot.git 
 cd ..
 colcon build --symlink-install
@@ -62,12 +64,12 @@ Package is still being worked on and not yet ready, will be adding these feature
  - [x] get simulation running
  - [x] get tele-op joy working
  - [x] add lidar to sim
- - [x] add camera
+ - [x] add camera to sim
  - [x] add slam to sim
+ - [x] add navigation to sim
 ### Pending
  - [ ] add four wheel robot
  - [ ] add depth camera
- - [ ] add navigation to sim
  - [ ] port to foxy
  - [ ] port to jazzy
  - [ ] update readme 

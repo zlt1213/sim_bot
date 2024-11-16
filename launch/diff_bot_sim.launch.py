@@ -18,6 +18,7 @@ def generate_launch_description():
     headless = LaunchConfiguration('headless')
     rviz = LaunchConfiguration('rviz')
     slam = LaunchConfiguration('slam')
+    nav = LaunchConfiguration('nav')
         
     # Path to default world 
     world_path = os.path.join(get_package_share_directory(package_name),'worlds', 'test.world')
@@ -38,6 +39,10 @@ def generate_launch_description():
     declare_slam = DeclareLaunchArgument(
         name='slam', default_value='True',
         description='Activates simultaneous localization and mapping')
+    
+    declare_nav = DeclareLaunchArgument(
+        name='nav', default_value='True',
+        description='Activates the navigation stack')
      
     # Launch Robot State Publisher
     rsp = IncludeLaunchDescription(
@@ -53,12 +58,21 @@ def generate_launch_description():
                 )]), launch_arguments={'use_sim_time': 'true'}.items()
     )
 
+    # Launch Twist Mux
+    twist_mux_params = os.path.join(get_package_share_directory(package_name),'config','twist_mux_params.yaml')
+    twist_mux = Node(
+            package="twist_mux",
+            executable="twist_mux",
+            parameters=[twist_mux_params, {'use_sim_time': True}],
+            remappings=[('/cmd_vel_out','/cmd_vel')]
+    )
+
     # Launch the gazebo server to initialize the simulation
-    #gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
+    gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
     gazebo_server = IncludeLaunchDescription(
                     PythonLaunchDescriptionSource([os.path.join(
                         get_package_share_directory('gazebo_ros'), 'launch', 'gzserver.launch.py'
-                    )]), launch_arguments={'world': world}.items()
+                    )]), launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_file, 'world': world}.items()
     )
 
     # Launch the gazebo client to visualize the simulation only if headless is declared as False
@@ -66,7 +80,8 @@ def generate_launch_description():
         condition=IfCondition(PythonExpression(['not ', headless])),
         actions=[IncludeLaunchDescription(
                     PythonLaunchDescriptionSource([os.path.join(
-                        get_package_share_directory('gazebo_ros'), 'launch', 'gzclient.launch.py')]))]
+                        get_package_share_directory('gazebo_ros'), 'launch', 'gzclient.launch.py')])
+                    )]
     )
 
     # Run the spawner node from the gazebo_ros package. 
@@ -104,6 +119,16 @@ def generate_launch_description():
                     )]), launch_arguments={'use_sim_time': 'true'}.items())]
     )
 
+    # Launch the navigation stack
+    nav_params = os.path.join(get_package_share_directory(package_name), 'config', 'nav_params.yaml')
+    nav_node = GroupAction(
+        condition=IfCondition(nav),
+        actions=[IncludeLaunchDescription(
+                    PythonLaunchDescriptionSource([os.path.join(
+                        get_package_share_directory(package_name),'launch','nav.launch.py'
+                    )]), launch_arguments={'use_sim_time': 'true', 'params_file': nav_params}.items())]
+    )
+
     # Launch them all!
     return LaunchDescription([
         # Declare launch arguments
@@ -111,13 +136,16 @@ def generate_launch_description():
         declare_rviz,
         declare_world,
         declare_slam,
+        declare_nav,
 
         # Launch the nodes
         rviz2,
         rsp,
+        twist_mux,
         joystick,
         gazebo_server,
         gazebo_client,
         spawn_diff_bot,
-        slam_node
+        slam_node,
+        nav_node,
     ])
