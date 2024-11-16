@@ -14,10 +14,19 @@ def generate_launch_description():
     package_name='sim_bot' 
 
     # Launch configurations
+    world = LaunchConfiguration('world')
     headless = LaunchConfiguration('headless')
     rviz = LaunchConfiguration('rviz')
+    slam = LaunchConfiguration('slam')
         
+    # Path to default world 
+    world_path = os.path.join(get_package_share_directory(package_name),'worlds', 'test.world')
+
     # Launch Arguments
+    declare_world = DeclareLaunchArgument(
+        name='world', default_value=world_path,
+        description='Full path to the world model file to load')
+    
     declare_headless = DeclareLaunchArgument(
         'headless', default_value='False',
         description='Decides if the simulation is visualized')
@@ -26,7 +35,10 @@ def generate_launch_description():
         name='rviz', default_value='True',
         description='Opens rviz is set to True')
     
- 
+    declare_slam = DeclareLaunchArgument(
+        name='slam', default_value='True',
+        description='Activates simultaneous localization and mapping')
+     
     # Launch Robot State Publisher
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -42,11 +54,11 @@ def generate_launch_description():
     )
 
     # Launch the gazebo server to initialize the simulation
-    gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
+    #gazebo_params_file = os.path.join(get_package_share_directory(package_name),'config','gazebo_params.yaml')
     gazebo_server = IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory('gazebo_ros'), 'launch', 'gzserver.launch.py')]),
-                    launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_file}.items()
+                    PythonLaunchDescriptionSource([os.path.join(
+                        get_package_share_directory('gazebo_ros'), 'launch', 'gzserver.launch.py'
+                    )]), launch_arguments={'world': world}.items()
     )
 
     # Launch the gazebo client to visualize the simulation only if headless is declared as False
@@ -54,8 +66,7 @@ def generate_launch_description():
         condition=IfCondition(PythonExpression(['not ', headless])),
         actions=[IncludeLaunchDescription(
                     PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory('gazebo_ros'), 'launch', 'gzclient.launch.py')]),
-                    launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_file}.items())]
+                        get_package_share_directory('gazebo_ros'), 'launch', 'gzclient.launch.py')]))]
     )
 
     # Run the spawner node from the gazebo_ros package. 
@@ -84,11 +95,22 @@ def generate_launch_description():
                                 ('/initialpose', 'initialpose')])]
     )
 
+    # Launch Simultaneous Localization and Mapping
+    slam_node = GroupAction(
+        condition=IfCondition(slam),
+        actions=[IncludeLaunchDescription(
+                    PythonLaunchDescriptionSource([os.path.join(
+                        get_package_share_directory(package_name),'launch','slam.launch.py'
+                    )]), launch_arguments={'use_sim_time': 'true'}.items())]
+    )
+
     # Launch them all!
     return LaunchDescription([
         # Declare launch arguments
         declare_headless,
         declare_rviz,
+        declare_world,
+        declare_slam,
 
         # Launch the nodes
         rviz2,
@@ -96,5 +118,6 @@ def generate_launch_description():
         joystick,
         gazebo_server,
         gazebo_client,
-        spawn_diff_bot
+        spawn_diff_bot,
+        slam_node
     ])

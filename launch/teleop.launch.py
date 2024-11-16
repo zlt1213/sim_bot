@@ -20,7 +20,7 @@ def generate_launch_description():
         description='Use simulation(Gazebo) clock if true')
 
     # Get the params file for our joystick
-    joy_params = os.path.join(package_name,'config','joy.yaml')
+    joy_params = os.path.join(package_name,'config','joy_params.yaml')
 
     # Launch the joy Node
     joy_node = Node(

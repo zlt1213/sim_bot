@@ -12,24 +12,13 @@ Currently supported:
  support for foxy and jazzy is planned.
 
 ## Dependencies
-Currently the package depends on:
- - xacro
- - gazebo
- - slam-toolbox
- - navigation2
- - ros2 control                 
- - ros2 controllers            
- - ros2 control-gazebo plugin  
-
+Get the package dependencies
 ```bash
 sudo apt install -y                         \
     ros-humble-xacro                        \
     ros-humble-navigation2                  \
     ros-humble-slam-toolbox                 \
-    ros-humble-ros2-control                 \
-    ros-humble-ros2-controllers             \
     ros-humble-gazebo-ros-pkgs              \
-    ros-humble-gazebo-ros2-control          \
 ```
 
 ## Usage 
@@ -38,12 +27,18 @@ The differential drive robot simulation can be run with the following command:
 ```bash
 ros2 launch sim_bot diff_bot_sim.launch.py 
 ```
+By default a tele-op joy node will be launched that will listen for a controller(xbox, ps4, etc) input. If that is not a suitable option, the robot can also be controlled with this command:
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard 
+```
 
 The simulation launch file offers serveral launch configurations to modify its behaviour. All of the launch configurations available are listed below:
 ```bash
-Config      Options      Default  Description                          
-headless:=  True/False   False    Gazebo is visualized if False
-rviz:=      True/False   True     Rviz is opened if True
+Config      Options         Default     Description
+world:=     <path_to_world> test.world  Relative path to test world                       
+headless:=  True/False      False       Gazebo is visualized if False
+rviz:=      True/False      True        Rviz is opened if True
+slam:=      True/False      True        Slam is run if True
 ```
 
 ## Install
@@ -69,9 +64,8 @@ Package is still being worked on and not yet ready, will be adding these feature
  - [x] add lidar to sim
  - [ ] add camera
  - [ ] add depth camera
- - [ ] add slam to sim
+ - [x] add slam to sim
  - [ ] add navigation to sim
- - [ ] add ros2 control to sim
  - [ ] port to foxy
  - [ ] port to jazzy
  - [ ] update readme 
