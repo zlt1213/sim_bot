@@ -3,8 +3,8 @@ This package will provide all of the necesarry files to get a simulated robot up
 
 ## Supported on
 Currently supported:
- - [Ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/)
- - [ROS2 Humble Hawksbill](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html)
+ - [Ubuntu 20.04 LTS](https://releases.ubuntu.com/jammy/) & [ROS2 Foxy](https://docs.ros.org/en/foxy/Installation.html),
+ - [Ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/) & [ROS2 Humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html)
 
 Support for foxy and jazzy is planned.
 
@@ -74,20 +74,7 @@ ros2 launch sim_bot diff_bot_sim.launch.py
 
 ## TODO 
 Package is still being worked on, however the core funtionality is pretty much done, will be adding these feature over the next couple of days.
-### Done
- - [x] add diff drive robot 
- - [x] add four wheel robot
- - [x] get simulation running
- - [x] get tele-op joy working
- - [x] add lidar to sim
- - [x] add camera to sim
- - [x] add depth camera to sim
- - [x] add 3dlidar to sim
- - [x] add slam to sim
- - [x] add navigation to sim
- - [x] fixed navigation pose bug 
-### Pending
  - [ ] add ackerman-type robot support 
- - [ ] port to foxy
+ - [ ] port to foxy(wip)
  - [ ] port to jazzy
  - [ ] update readme 
