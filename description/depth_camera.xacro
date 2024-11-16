@@ -4,14 +4,14 @@
     <joint name="camera_joint" type="fixed">
         <parent link="chassis"/>
         <child link="camera_link"/>
-        <origin xyz="0.35 0 0.08" rpy="0 0 0"/>
+        <origin xyz="0.175 0 0.05" rpy="0 0 0"/>
     </joint>
     <link name="camera_link">
         <visual>
             <geometry>
                 <box size="0.010 0.03 0.03"/>
             </geometry>
-            <material name="red"/>
+            <material name="purple"/>
         </visual>
     </link>
     <!-- Deepth camera optical link -->
@@ -23,7 +23,7 @@
     <link name="camera_link_optical"></link>
     <!-- Deepth Camera Gazebo Sensor Plugin -->
     <gazebo reference="camera_link">
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Purple</material>
 
         <sensor name="camera" type="depth">
             <pose> 0 0 0 0 0 0 </pose>

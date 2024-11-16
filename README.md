@@ -1,8 +1,5 @@
 # Simulated Robots Package 
-
-This package will provide all of the necesarry files to get a simulated robot up and running. This includes the urdf, configuartion and launch files for a robot capable of mapping and localization as well as autonamous and tele-operated navigation. Currently only a differential drive robot is impremented, a four wheel robot is planned. The package is being written for humble, but once its finished it will be ported to jazzy and foxy (maybe also iron?). 
-
-### Note: work in progress, not ready yet 
+This package will provide all of the necesarry files to get a simulated robot up and running. This includes the urdf, configuartion and launch files for a robot capable of mapping and localization as well as autonamous and tele-operated navigation. There 2 robot types available at the moment: 2-wheeled and 4-wheeled differential drive. The package is being written for humble, but once its finished it will be ported to jazzy and foxy. 
 
 ## Supported on
 Currently supported:
@@ -11,15 +8,6 @@ Currently supported:
 
  support for foxy and jazzy is planned.
 
-## Dependencies
-Get the package dependencies
-```bash
-sudo apt install -y                         \
-    ros-humble-xacro                        \
-    ros-humble-navigation2                  \
-    ros-humble-slam-toolbox                 \
-    ros-humble-gazebo-ros-pkgs              \
-```
 
 ## Usage 
 ### Differential Drive Robot
@@ -27,12 +15,21 @@ The differential drive robot simulation can be run with the following command:
 ```bash
 ros2 launch sim_bot diff_bot_sim.launch.py 
 ```
+
+### Four Wheel Drive Robot
+The four wheel drive robot simulation can be run with the following command:
+```bash
+ros2 launch sim_bot four_wheel_sim.launch.py 
+```
+
+### Controlling the robot
 By default a tele-op joy node will be launched that will listen for a controller(xbox, ps4, etc) input. If that is not a suitable option, the robot can also be controlled with this command:
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard 
 ```
 
-The simulation launch file offers serveral launch configurations to modify its behaviour. All of the launch configurations available are listed below:
+### Launch configurations
+The simulation launch files offer serveral launch configurations to modify its behaviour. All of the launch configurations available are listed below:
 ```bash
 Config      Options         Default     Description
 world:=     <path_to_world> test.world  Relative path to test world                       
@@ -41,6 +38,23 @@ rviz:=      True/False      True        Rviz is opened if True
 slam:=      True/False      True        Localization and mapping is run if True
 nav:=       True/False      True        Navigation stack is launched if True
 ```
+
+These configurations are the same no matter the robot type. Example launch command with custom arguments:
+```bash 
+ros2 launch sim_bot four_wheel_sim.launch.py rviz:=False slam:=False nav:=False
+```
+
+
+## Dependencies
+This packages is designed to be require minimal set-up for robot simulations, so i tried to keep the dependencies to a minimum. Xacro is used for urdf flexibility, gazebo is the simulator being used, and slam-toolbox and navigation2 are a commonly used tools to give autonomy to a robot.
+```bash
+sudo apt install -y               \
+    ros-humble-xacro              \
+    ros-humble-navigation2        \
+    ros-humble-slam-toolbox       \
+    ros-humble-gazebo-ros-pkgs    \
+```
+
 
 ## Install
 To use this package please download all of the necesary dependencies first and then follow these steps
@@ -57,19 +71,23 @@ source ./install/setup.bash
 ros2 launch sim_bot diff_bot_sim.launch.py 
 ```
 
+
 ## TODO 
 Package is still being worked on and not yet ready, will be adding these feature over the next couple of days.
 ### Done
  - [x] add diff drive robot 
+ - [x] add four wheel robot
  - [x] get simulation running
  - [x] get tele-op joy working
  - [x] add lidar to sim
  - [x] add camera to sim
- - [x] add depth camera
+ - [x] add depth camera to sim
  - [x] add slam to sim
  - [x] add navigation to sim
 ### Pending
- - [ ] add four wheel robot
+ - [ ] fixed navigation pose bug
+ - [ ] add ackerman-type robot support 
+ - [ ] add 3dlidar
  - [ ] port to foxy
  - [ ] port to jazzy
  - [ ] update readme 

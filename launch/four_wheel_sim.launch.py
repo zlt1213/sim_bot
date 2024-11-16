@@ -9,9 +9,12 @@ from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, Grou
 
 
 def generate_launch_description():
-
+    
     # Package name
     package_name='sim_bot' 
+
+    # Set use_sim_time to true
+    use_sim_time = 'true'
 
     # Launch configurations
     world = LaunchConfiguration('world')
@@ -19,11 +22,11 @@ def generate_launch_description():
     rviz = LaunchConfiguration('rviz')
     slam = LaunchConfiguration('slam')
     nav = LaunchConfiguration('nav')
-        
+
     # Path to default world 
     world_path = os.path.join(get_package_share_directory(package_name),'worlds', 'test.world')
 
-    # Launch Arguments
+    # Launch Arguments    
     declare_world = DeclareLaunchArgument(
         name='world', default_value=world_path,
         description='Full path to the world model file to load')
@@ -45,18 +48,18 @@ def generate_launch_description():
         description='Activates the navigation stack')
      
     # Launch Robot State Publisher
-    urdf_path = os.path.join(get_package_share_directory(package_name),'description','diff_bot.urdf.xacro')
+    urdf_path = os.path.join(get_package_share_directory(package_name),'description','four_wheel.urdf.xacro')
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory(package_name),'launch','rsp.launch.py'
-                )]), launch_arguments={'use_sim_time': 'true', 'urdf': urdf_path}.items()
+                )]), launch_arguments={'use_sim_time': use_sim_time, 'urdf': urdf_path}.items()
     )
     
     # Launch Joystick Tele Operation
     joystick = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory(package_name),'launch','teleop.launch.py'
-                )]), launch_arguments={'use_sim_time': 'true'}.items()
+                )]), launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
     # Launch Twist Mux
@@ -95,7 +98,7 @@ def generate_launch_description():
     )
     
     # Launch Rviz with diff bot rviz file
-    rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'diff_bot.rviz')
+    rviz_config_file = os.path.join(get_package_share_directory(package_name), 'rviz', 'four_wheel_bot.rviz')
     rviz2 = GroupAction(
         condition=IfCondition(rviz),
         actions=[Node(
@@ -117,7 +120,7 @@ def generate_launch_description():
         actions=[IncludeLaunchDescription(
                     PythonLaunchDescriptionSource([os.path.join(
                         get_package_share_directory(package_name),'launch','slam.launch.py'
-                    )]), launch_arguments={'use_sim_time': 'true'}.items())]
+                    )]), launch_arguments={'use_sim_time': use_sim_time}.items())]
     )
 
     # Launch the navigation stack
@@ -127,7 +130,7 @@ def generate_launch_description():
         actions=[IncludeLaunchDescription(
                     PythonLaunchDescriptionSource([os.path.join(
                         get_package_share_directory(package_name),'launch','nav.launch.py'
-                    )]), launch_arguments={'use_sim_time': 'true', 'params_file': nav_params}.items())]
+                    )]), launch_arguments={'use_sim_time': use_sim_time, 'params_file': nav_params}.items())]
     )
 
     # Launch them all!

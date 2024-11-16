@@ -5,7 +5,7 @@
     <xacro:include filename="inertials.xacro"/>
     <xacro:include filename="materials.xacro"/>
 
-    <!-- Include sensors (currently only lidar, camera and deepth camera supported) -->
+    <!-- Include sensors (currently only lidar, camera and depth camera supported) -->
     <xacro:include filename="lidar.xacro"/>
     <!-- <xacro:include filename="camera.xacro"/> -->
     <xacro:include filename="depth_camera.xacro"/>
@@ -19,11 +19,11 @@
     <xacro:property name="wheel_thickness" value="0.018"/>
     <xacro:property name="wheel_mass" value="0.3"/>
     <xacro:property name="wheel_offset_x" value="0.13"/>
-    <xacro:property name="wheel_offset_y" value="0.169"/>
+    <xacro:property name="wheel_offset_y" value="${chassis_width/2 + wheel_thickness/2}"/>
     <xacro:property name="wheel_offset_z" value="0.0"/>
     <xacro:property name="caster_wheel_radius" value="0.032225"/>
     <xacro:property name="caster_wheel_mass" value="0.2"/>
-    <xacro:property name="caster_wheel_offset_x" value="${chassis_length + 0.0}"/>
+    <xacro:property name="caster_wheel_offset_x" value="${chassis_length/2}"/>
     <xacro:property name="caster_wheel_offset_z" value="${wheel_offset_z - wheel_radius + caster_wheel_radius}"/>
 
     <!-- Base Link -->
@@ -41,24 +41,24 @@
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link"/>
         <child link="chassis"/>
-        <origin xyz="${-wheel_offset_x} 0 ${-wheel_offset_z}"/>
+        <origin xyz="0 0 0"/>
     </joint>
     <link name="chassis">
         <visual>
-            <origin xyz="${chassis_length/2} 0 ${chassis_height/2}"/>
+            <origin xyz="0 0 ${chassis_height/2}"/>
             <geometry>
                 <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
             </geometry>
             <material name="red"/>
         </visual>
         <collision>
-            <origin xyz="${chassis_length/2} 0 ${chassis_height/2}"/>
+            <origin xyz="0 0 ${chassis_height/2}"/>
             <geometry>
                 <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
             </geometry>
         </collision>
         <xacro:inertial_box mass="0.5" x="${chassis_length}" y="${chassis_width}" z="${chassis_height}">
-            <origin xyz="${chassis_length/2} 0 ${chassis_height/2}" rpy="0 0 0"/>
+            <origin xyz="0 0 ${chassis_height/2}" rpy="0 0 0"/>
         </xacro:inertial_box>
     </link>
 
@@ -66,7 +66,7 @@
     <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="left_wheel"/>
-        <origin xyz="0 ${wheel_offset_y} 0" rpy="-${pi/2} 0 0" />
+        <origin xyz="${-wheel_offset_x} ${wheel_offset_y} 0" rpy="-${pi/2} 0 0" />
         <axis xyz="0 0 1"/>
     </joint>
     <link name="left_wheel">
@@ -90,7 +90,7 @@
     <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel"/>
-        <origin xyz="0 ${-wheel_offset_y} 0" rpy="${pi/2} 0 0" />
+        <origin xyz="${-wheel_offset_x} ${-wheel_offset_y} 0" rpy="${pi/2} 0 0" />
         <axis xyz="0 0 -1"/>
     </joint>
     <link name="right_wheel">
