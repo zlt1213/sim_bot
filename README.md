@@ -8,7 +8,9 @@ Currently supported:
  - Support for [Ubuntu 24.04](https://releases.ubuntu.com/noble/) & [ROS2 Jazzy](https://docs.ros.org/en/jazzy/Installation.html) is planned.
 
 
-## Usage 
+## Usage
+![alt text](https://github.com/[Alexander-Levy]/[sim_bot]/blob/[humble]/simulaton_sample.png?raw=true)
+
 ### Differential Drive Robot
 The differential drive robot simulation can be run with the following command:
 ```bash
