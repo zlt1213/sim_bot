@@ -65,11 +65,11 @@ Package is still being worked on and not yet ready, will be adding these feature
  - [x] get tele-op joy working
  - [x] add lidar to sim
  - [x] add camera to sim
+ - [x] add depth camera
  - [x] add slam to sim
  - [x] add navigation to sim
 ### Pending
  - [ ] add four wheel robot
- - [ ] add depth camera
  - [ ] port to foxy
  - [ ] port to jazzy
  - [ ] update readme 

@@ -5,9 +5,10 @@
     <xacro:include filename="inertials.xacro"/>
     <xacro:include filename="materials.xacro"/>
 
-    <!-- Include sensors (currently only lidar and camera supported) -->
+    <!-- Include sensors (currently only lidar, camera and deepth camera supported) -->
     <xacro:include filename="lidar.xacro"/>
-    <xacro:include filename="camera.xacro"/>
+    <!-- <xacro:include filename="camera.xacro"/> -->
+    <xacro:include filename="depth_camera.xacro"/>
 
     <!-- Robot Variables -->
     <xacro:property name="chassis_length" value="0.35"/>
