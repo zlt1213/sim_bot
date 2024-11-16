@@ -57,14 +57,16 @@ ros2 launch sim_bot diff_bot_sim.launch.py
 
 ## TODO 
 Package is still being worked on and not yet ready, will be adding these feature over the next couple of days.
+### Done
  - [x] add diff drive robot 
- - [ ] add four wheel robot
  - [x] get simulation running
  - [x] get tele-op joy working
  - [x] add lidar to sim
- - [ ] add camera
- - [ ] add depth camera
+ - [x] add camera
  - [x] add slam to sim
+### Pending
+ - [ ] add four wheel robot
+ - [ ] add depth camera
  - [ ] add navigation to sim
  - [ ] port to foxy
  - [ ] port to jazzy
