@@ -11,16 +11,22 @@ Currently supported:
 ## Usage
 ![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble/media/simulaton_sample.png "Simulation")
 
-### Differential Drive Robot
+### Two Wheeled Differential Drive Robot
 The differential drive robot simulation can be run with the following command:
 ```bash
 ros2 launch sim_bot diff_bot_sim.launch.py 
 ```
 
-### Four Wheel Drive Robot
+### Four Wheel Differential Drive Robot
 The four wheel drive robot simulation can be run with the following command:
 ```bash
 ros2 launch sim_bot four_wheel_sim.launch.py 
+```
+
+### Ackermann Robot
+The four wheel drive robot simulation can be run with the following command:
+```bash
+ros2 launch sim_bot ackermann_sim.launch.py 
 ```
 
 ### Controlling the robot
@@ -76,6 +82,8 @@ ros2 launch sim_bot diff_bot_sim.launch.py
 
 ## TODO 
 Package is still being worked on, however the core funtionality is pretty much done, will be adding these feature over the next couple of days.
- - [ ] add ackerman-type robot support 
+ - [ ] clean ackerman urdf and tuned drive params
+ - [ ] configure navigation to work with ackerman robot 
+ - [ ] port ackerman robot to foxy 
+ - [ ] port package to jazzy
  - [ ] update readme 
- - [ ] port to jazzy
