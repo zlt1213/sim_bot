@@ -1,11 +1,12 @@
 # Simulated Robots Package 
-Minimal simulation for robots using ROS2 and Gazebo. This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There 2 robot types available at the moment: 2-wheeled and 4-wheeled differential drive. Currently four sensors are implemented: camera, depth camera, and 2D & 3D lidars. The package has been tested to work humble and foxy, it will be upgraded to work jazzy in the near future. 
+Minimal simulation for robots using ROS2 and Gazebo Classic. This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There are 3 robot types available at the moment: 2-wheeled and 4-wheeled differential drive, and ackermann. Currently four sensors are implemented: camera, depth camera, and 2D & 3D lidars. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy and new gazebo in the near future. 
 
 ## Supported on
 Currently supported:
- - [Ubuntu 20.04 LTS](https://releases.ubuntu.com/focal/) & [ROS2 Foxy](https://docs.ros.org/en/foxy/Installation.html)
- - [Ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/) & [ROS2 Humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html)
- - Support for [Ubuntu 24.04](https://releases.ubuntu.com/noble/) & [ROS2 Jazzy](https://docs.ros.org/en/jazzy/Installation.html) is planned.
+ - [Ubuntu 20.04 LTS](https://releases.ubuntu.com/focal/) & [ROS2 Foxy](https://docs.ros.org/en/foxy/Installation.html) (Gazebo Classic)
+ - [Ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/) & [ROS2 Humble](https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html) (Gazebo Classic)
+ - Support for [Ubuntu 24.04](https://releases.ubuntu.com/noble/) & [ROS2 Jazzy](https://docs.ros.org/en/jazzy/Installation.html) (Gazebo Harmonic) is planned.
+ - Support for gazebo fortress on humble is planned.
 
 
 ## Usage
@@ -24,7 +25,7 @@ ros2 launch sim_bot four_wheel_sim.launch.py
 ```
 
 ### Ackermann Robot
-The four wheel drive robot simulation can be run with the following command:
+The ackermann robot simulation can be run with the following command:
 ```bash
 ros2 launch sim_bot ackermann_sim.launch.py 
 ```
@@ -81,9 +82,11 @@ ros2 launch sim_bot diff_bot_sim.launch.py
 
 
 ## TODO 
-Package is still being worked on, however the core funtionality is pretty much done, will be adding these feature over the next couple of days.
+Package is still being worked on, however the core funtionality is pretty much done, will be adding some things over the next couple of days.
  - [ ] clean ackerman urdf and tuned drive params
- - [ ] configure navigation to work with ackerman robot 
+ - [ ] configure navigation to work with ackerman robot
+ - [ ] add new gazebo to humble
  - [ ] port ackerman robot to foxy 
  - [ ] port package to jazzy
+ - [ ] write some documentation 
  - [ ] update readme 
