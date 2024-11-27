@@ -25,16 +25,19 @@ Humble | Gazebo Classic | [humble](https://github.com/Alexander-Levy/sim_bot/tre
 Humble | Fortress | [humble-new-gazebo](https://github.com/Alexander-Levy/sim_bot/tree/humble-new-gazebo) 
 
 ## Usage
-![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble/media/simulaton_sample.png "Simulation")
+![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble-new-gazebo/media/new_gazebo_sim.png "Gazebo Simulation")
+
+![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble-new-gazebo/media/simulation_sample.png "ROS Visualizer")
+
 
 ### Two Wheeled Differential Drive Robot
-The differential drive robot simulation can be run with the following command:
+The 2-wheeled differential drive robot simulation can be run with the following command:
 ```bash
 ros2 launch sim_bot diff_bot.launch.py 
 ```
 
-### Four Wheel Diff Drive  
-The differential drive robot simulation can be run with the following command:
+### Four Wheeled Differential Drive Robot  
+The 4-wheeled differential drive robot simulation can be run with the following command:
 ```bash
 ros2 launch sim_bot four_wheel.launch.py 
 ```
