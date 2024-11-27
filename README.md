@@ -1,5 +1,5 @@
 # Simulated Robots Package 
-Minimal simulation for robots using ROS2 and Gazebo(Classic and New). This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There is only a 2-wheeled differential drive. Currently four sensors are implemented: camera, depth camera, and 2D & 3D lidars. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy and new gazebo in the near future. 
+Minimal simulation for mobile robots using ROS2 and Gazebo(Classic and New). This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There are two robots available: a 2-wheeled and a 4-wheeled differential drive robot. Currently four sensors are implemented: camera, depth camera, and 2D & 3D lidars. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy in the near future. 
 
 ### Work in progress
 The package is still being worked on and early in development
@@ -33,7 +33,13 @@ The differential drive robot simulation can be run with the following command:
 ros2 launch sim_bot diff_bot.launch.py 
 ```
 
-### Four Wheel Diff Drive and Ackermann Robot need to be ported
+### Four Wheel Diff Drive  
+The differential drive robot simulation can be run with the following command:
+```bash
+ros2 launch sim_bot four_wheel.launch.py 
+```
+
+### Ackermann Robot needs to be ported
 
 ### Controlling the robot
 By default the simulation will also launch a tele_op_joy node will be launched that will listen for a controller(xbox, ps4, etc) input. If that is not a suitable option, the robot can also be controlled with this command:
@@ -88,6 +94,5 @@ ros2 launch sim_bot diff_bot.launch.py
 
 ## TODO 
 Package is still being worked on, however the core funtionality is pretty much done, will be adding some things over the next couple of days.
- - [ ] add four wheel diff drive
  - [ ] add ackerman 
  - [ ] update readme 
