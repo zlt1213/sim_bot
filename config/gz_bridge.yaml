@@ -33,11 +33,18 @@
   gz_type_name: "gz.msgs.Twist"
   direction: ROS_TO_GZ
 
-# gz topic published by Sensors plugin (Lidar)
+# gz topic published by Sensors plugin (2D Lidar)
 - ros_topic_name: "scan"
   gz_topic_name: "scan"
   ros_type_name: "sensor_msgs/msg/LaserScan"
   gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+
+# gz topic published by Sensors plugin (3D Lidar)
+- ros_topic_name: "cloud"
+  gz_topic_name: "cloud/points"
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
   direction: GZ_TO_ROS
 
 # gz topic published by Sensors plugin (Camera)

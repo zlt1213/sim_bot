@@ -1,5 +1,5 @@
 # Simulated Robots Package 
-Minimal simulation for robots using ROS2 and Gazebo(Classic and New). This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There is only a 2-wheeled differential drive. Currently three sensors are implemented: a camera, a depth camera, and 2D lidar. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy and new gazebo in the near future. 
+Minimal simulation for robots using ROS2 and Gazebo(Classic and New). This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There is only a 2-wheeled differential drive. Currently four sensors are implemented: camera, depth camera, and 2D & 3D lidars. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy and new gazebo in the near future. 
 
 ### Work in progress
 The package is still being worked on and early in development
@@ -90,5 +90,4 @@ ros2 launch sim_bot diff_bot.launch.py
 Package is still being worked on, however the core funtionality is pretty much done, will be adding some things over the next couple of days.
  - [ ] add four wheel diff drive
  - [ ] add ackerman 
- - [ ] add 3d lidar 
  - [ ] update readme 
