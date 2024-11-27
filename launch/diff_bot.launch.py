@@ -37,11 +37,11 @@ def generate_launch_description():
         description='Opens rviz is set to True')
     
     declare_slam = DeclareLaunchArgument(
-        name='slam', default_value='False',
+        name='slam', default_value='True',
         description='Activates simultaneous localization and mapping')
     
     declare_nav = DeclareLaunchArgument(
-        name='nav', default_value='False',
+        name='nav', default_value='True',
         description='Activates the navigation stack')
      
     # Launch Robot State Publisher
@@ -72,7 +72,7 @@ def generate_launch_description():
     gazebo_server = IncludeLaunchDescription(
                     PythonLaunchDescriptionSource([os.path.join(
                         get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py'
-                    )]), launch_arguments={'gz_args': ['-r -s ', world], 'on_exit_shutdown': 'true'}.items()
+                    )]), launch_arguments={'gz_args': ['-r -s -v4 ', world], 'on_exit_shutdown': 'true'}.items()
     )
 
     # Launch the gazebo client to visualize the simulation only if headless is declared as False
@@ -90,7 +90,7 @@ def generate_launch_description():
                         executable='create',
                         arguments=['-topic', 'robot_description',
                                    '-name', 'diff_bot',
-                                   '-z', '0.5'],
+                                   '-z', '0.2'],
                         output='screen'
     )
 
@@ -107,7 +107,7 @@ def generate_launch_description():
     ros_gz_image_bridge = Node(
         package="ros_gz_image",
         executable="image_bridge",
-        arguments=["/camera/image_raw"]
+        arguments=["/camera/image"]
     )
     
     # Launch Rviz with diff bot rviz file

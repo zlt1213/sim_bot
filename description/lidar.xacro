@@ -11,7 +11,7 @@
             <geometry>
                 <cylinder radius="0.05" length="0.05"/>
             </geometry>
-            <material name="black"/>
+            <material name="grey"/>
         </visual>
         <collision>
             <geometry>
@@ -25,7 +25,7 @@
 
     <!-- 2D Lidar New Gazebo Sensor Plugin  -->
     <gazebo reference="laser_frame">
-        <material>Gazebo/Black</material>
+        <material>Gazebo/Grey</material>
         
         <sensor name="laser" type="gpu_lidar">
             <pose> 0 0 0 0 0 0 </pose>

@@ -1,5 +1,5 @@
 # Simulated Robots Package 
-Minimal simulation for robots using ROS2 and Gazebo(Classic and New). This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There is only a 2-wheeled differential drive. Currently two sensors are implemented: camera, and 2D lidar. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy and new gazebo in the near future. 
+Minimal simulation for robots using ROS2 and Gazebo(Classic and New). This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There is only a 2-wheeled differential drive. Currently three sensors are implemented: a camera, a depth camera, and 2D lidar. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy and new gazebo in the near future. 
 
 ### Work in progress
 The package is still being worked on and early in development
@@ -59,7 +59,7 @@ ros2 launch sim_bot diff_bot.launch.py rviz:=False slam:=False nav:=False
 
 
 ## Dependencies
-This packages is designed to be require minimal set-up for robot simulations, so i tried to keep the dependencies to a minimum. Xacro is used for urdf flexibility, gazebo is the simulator being used, twist-mux is used so that the robot can listen to multiple topics for velocity commands, and slam-toolbox and navigation2 are a commonly used tools to give autonomy to a robot.
+This packages is designed to be require minimal set-up for robot simulations, so i tried to keep the dependencies to a minimum. xacro is used for urdf flexibility, gazebo is the simulator being used, twist-mux is used so that the robot can listen to multiple topics for velocity commands, and slam-toolbox and navigation2 are a commonly used tools to give autonomy to a robot.
 ```bash
 sudo apt install -y            \
     ros-humble-xacro           \
@@ -82,7 +82,7 @@ colcon build --symlink-install
 Launch the simulation to test the package
 ```bash
 source ./install/setup.bash
-ros2 launch sim_bot diff_bot_sim.launch.py 
+ros2 launch sim_bot diff_bot.launch.py 
 ```
 
 
@@ -91,5 +91,4 @@ Package is still being worked on, however the core funtionality is pretty much d
  - [ ] add four wheel diff drive
  - [ ] add ackerman 
  - [ ] add 3d lidar 
- - [ ] add depth camera
  - [ ] update readme 

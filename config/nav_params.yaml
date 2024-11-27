@@ -212,7 +212,7 @@ planner_server:
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
       tolerance: 0.5
-      use_astar: false
+      use_astar: true
       allow_unknown: true
 
 smoother_server:
@@ -263,7 +263,7 @@ waypoint_follower:
     wait_at_waypoint:
       plugin: "nav2_waypoint_follower::WaitAtWaypoint"
       enabled: True
-      waypoint_pause_duration: 200
+      waypoint_pause_duration: 250
 
 velocity_smoother:
   ros__parameters:
