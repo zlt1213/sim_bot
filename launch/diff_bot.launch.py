@@ -17,6 +17,7 @@ def generate_launch_description():
     world = LaunchConfiguration('world')
     headless = LaunchConfiguration('headless')
     rviz = LaunchConfiguration('rviz')
+    joy = LaunchConfiguration('joy')
     slam = LaunchConfiguration('slam')
     nav = LaunchConfiguration('nav')
     octomap = LaunchConfiguration('octomap')
@@ -37,6 +38,10 @@ def generate_launch_description():
         name='rviz', default_value='True',
         description='Opens rviz is set to True')
     
+    declare_joy = DeclareLaunchArgument(
+        name='joy', default_value='True',
+        description='Activates joy tele-operation')
+    
     declare_slam = DeclareLaunchArgument(
         name='slam', default_value='True',
         description='Activates simultaneous localization and mapping')
@@ -49,7 +54,7 @@ def generate_launch_description():
         name='octomap', default_value='True',
         description='Activates 3D mapping if set to true')
 
-    # Launch Robot State Publisher
+    # Launch Robot State Publisher Node
     urdf_path = os.path.join(get_package_share_directory(package_name),'description','diff_bot.urdf.xacro')
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -57,14 +62,16 @@ def generate_launch_description():
                 )]), launch_arguments={'use_sim_time': 'true', 'urdf': urdf_path}.items()
     )
     
-    # Launch Joystick Tele Operation
-    joystick = IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory(package_name),'launch','teleop.launch.py'
-                )]), launch_arguments={'use_sim_time': 'true'}.items()
+    # Launch Joystick Tele Operation Node if activated (active by default)
+    joystick = GroupAction(
+        condition=IfCondition(joy),
+        actions=[IncludeLaunchDescription(
+                    PythonLaunchDescriptionSource([os.path.join(
+                        get_package_share_directory(package_name),'launch','teleop.launch.py'
+                    )]), launch_arguments={'use_sim_time': 'true'}.items())]
     )
 
-    # Launch Twist Mux
+    # Launch the Twist Mux Node
     twist_mux_params = os.path.join(get_package_share_directory(package_name),'config','twist_mux_params.yaml')
     twist_mux = Node(
             package="twist_mux",
@@ -77,7 +84,7 @@ def generate_launch_description():
     gazebo_server = IncludeLaunchDescription(
                     PythonLaunchDescriptionSource([os.path.join(
                         get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py'
-                    )]), launch_arguments={'gz_args': ['-r -s -v4 ', world], 'on_exit_shutdown': 'true'}.items()
+                    )]), launch_arguments={'gz_args': ['-r -s -v1 ', world], 'on_exit_shutdown': 'true'}.items()
     )
 
     # Launch the gazebo client to visualize the simulation only if headless is declared as False
@@ -169,6 +176,7 @@ def generate_launch_description():
         # Declare launch arguments
         declare_headless,
         declare_rviz,
+        declare_joy,
         declare_world,
         declare_slam,
         declare_nav,

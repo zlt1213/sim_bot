@@ -45,7 +45,12 @@ ros2 launch sim_bot four_wheel.launch.py
 ### Ackermann Robot needs to be ported
 
 ### Controlling the robot
-By default the simulation will launch a tele_op_joy node that will listen for a controller(xbox, ps4, etc) input. If that is not a suitable option, the robot can also be controlled with the keyboard using this command:
+By default the simulation will launch a joystick tele-operation node that will listen for a controller(xbox, ps4, etc) input. To control the robot with the keyboard set the `joy` launch argument to false.
+```bash
+ros2 launch sim_bot diff_bot.launch.py joy:=False
+```
+
+Then use this command in another terminal:
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard 
 ```
@@ -54,12 +59,13 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 The simulation launch files offer serveral launch configurations to modify its behaviour. All of the launch configurations available are listed below:
 ```bash
 Config      Options         Default     Description
-world:=     <path_to_world> test.world  Relative path to test world                       
-headless:=  True/False      False       Toggle the Gazebo graphical interface (visualized if False) 
-rviz:=      True/False      True        Activates rviz is launch with pre-made view
-slam:=      True/False      True        Activates localization and mapping 
-nav:=       True/False      True        Activates the navigation stack  
-octomap:=   True/False      True        Activates the octomap server  
+world:=     <path_to_world> test.world  Relative path to test world.
+headless:=  True/False      False       Toggle the Gazebo graphical interface (visualized if False). 
+rviz:=      True/False      True        Activates rviz is launch with pre-made view.
+joy:=       True/False      True        Activates controller teleop support.
+slam:=      True/False      True        Activates localization and mapping.
+nav:=       True/False      True        Activates the navigation stack.
+octomap:=   True/False      True        Activates the octomap server.
 ```
 
 These configurations are the same no matter the robot type. Example launch command with custom arguments:
