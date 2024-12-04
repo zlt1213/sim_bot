@@ -2,10 +2,9 @@
 Minimal simulation for mobile robots using ROS2 and Gazebo(Classic and New). This package provides all of the necesarry files to get a simulated robot up and running. This includes the urdf, parameters and launch files for a robot capable of sensing its enviroment, mapping and localization, as well as autonamous and tele-operated navigation. There are two robots available: a 2-wheeled and a 4-wheeled differential drive robot. Currently four sensors are implemented: camera, depth camera, and 2D & 3D lidars. The package has been tested to work humble and foxy, it will be upgraded to work with jazzy in the near future. 
 
 ### Work in progress
-The package is still being worked on and early in development
+The package is still being worked on and in development
 
 ## Supported on
-Currently supported:
 Ubuntu Version | ROS 2 version | Gazebo
 -- | -- | -- 
 [Ubuntu 20.04 LTS](https://releases.ubuntu.com/focal/) | [ROS2 Foxy](https://docs.ros.org/en/foxy/Installation.html) | Gazebo Classic 
@@ -14,34 +13,20 @@ Ubuntu Version | ROS 2 version | Gazebo
 Support for [Ubuntu 24.04](https://releases.ubuntu.com/noble/) & [ROS2 Jazzy](https://docs.ros.org/en/jazzy/Installation.html) is planned.
 
 
-### Note
-ROS Iron could work with the humble branches but this has not been tested.
-
 ## Branches
 ROS 2 version | Gazebo version | Branch 
 -- | -- | -- 
 Foxy | Gazebo Classic | [foxy](https://github.com/Alexander-Levy/sim_bot/tree/foxy) 
 Humble | Gazebo Classic | [humble](https://github.com/Alexander-Levy/sim_bot/tree/humble) 
-Humble | Fortress | [humble-new-gazebo](https://github.com/Alexander-Levy/sim_bot/tree/humble-new-gazebo) 
+Humble | Fortress | [humble-new-gazebo](https://github.com/Alexander-Levy/sim_bot/tree/humble-new-gazebo)
+
+`Note: ROS Iron could work with the humble branches but this has not been tested`.
 
 ## Usage
 ![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble-new-gazebo/media/new_gazebo_sim.png "Gazebo Simulation")
 
 ![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble-new-gazebo/media/simulation_sample.png "ROS Visualizer")
 
-### Setting up your enviroment 
-Before launching the simulation make sure to set up your environment by sourcing the following files, replace `sim_ws` with the path to your workspace.
-```bash
-source /opt/ros/humble/setup.bash
-cd sim_ws                           
-source install/setup.bash
-```
-
-You need to run these commands every time you open a new terminal. If you don’t want to have to source the setup files every time you open a new termianl (skipping task 1), then you can add the command to your terminal startup script: 
-```bash
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
-echo "source <path_to_workspace>/install/setup.bash" >> ~/.bashrc
-```
 
 ### Two Wheeled Differential Drive Robot
 After sourcing ROS and this package we can launch the 2-wheeled differential drive robot simulation with the following command:
@@ -114,6 +99,21 @@ Launch the simulation to test the package
 source ./install/setup.bash
 ros2 launch sim_bot diff_bot.launch.py 
 ```
+
+## Setting up your enviroment 
+Before launching the simulation make sure to set up your environment by sourcing the following files, replace `sim_ws` with the path to your workspace.
+```bash
+source /opt/ros/humble/setup.bash
+cd sim_ws                           
+source install/setup.bash
+```
+
+You need to run these commands every time you open a new terminal. If you don’t want to have to source the setup files every time you open a new termianl (skipping one step), then you can add the command to your terminal startup script: 
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "source <path_to_workspace>/install/setup.bash" >> ~/.bashrc
+```
+Make sure to change `<path_to_workspace>` with the correct path.
 
 
 ## TODO 
