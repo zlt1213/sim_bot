@@ -29,15 +29,28 @@ Humble | Fortress | [humble-new-gazebo](https://github.com/Alexander-Levy/sim_bo
 
 ![alt text](https://github.com/Alexander-Levy/sim_bot/blob/humble-new-gazebo/media/simulation_sample.png "ROS Visualizer")
 
+### Setting up your enviroment 
+Before launching the simulation make sure to set up your environment by sourcing the following files, replace `sim_ws` with the path to your workspace.
+```bash
+source /opt/ros/humble/setup.bash
+cd sim_ws                           
+source install/setup.bash
+```
+
+You need to run these commands every time you open a new terminal. If you don’t want to have to source the setup files every time you open a new termianl (skipping task 1), then you can add the command to your terminal startup script: 
+```bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "source <path_to_workspace>/install/setup.bash" >> ~/.bashrc
+```
 
 ### Two Wheeled Differential Drive Robot
-The 2-wheeled differential drive robot simulation can be run with the following command:
+After sourcing ROS and this package we can launch the 2-wheeled differential drive robot simulation with the following command:
 ```bash
 ros2 launch sim_bot diff_bot.launch.py 
 ```
 
 ### Four Wheeled Differential Drive Robot  
-The 4-wheeled differential drive robot simulation can be run with the following command:
+After sourcing ROS and this package we can launch the 4-wheeled differential drive robot simulation with the following command:
 ```bash
 ros2 launch sim_bot four_wheel.launch.py 
 ```
@@ -59,9 +72,9 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 The simulation launch files offer serveral launch configurations to modify its behaviour. All of the launch configurations available are listed below:
 ```bash
 Config      Options         Default     Description
-world:=     <path_to_world> test.world  Relative path to test world.
-headless:=  True/False      False       Toggle the Gazebo graphical interface (visualized if False). 
-rviz:=      True/False      True        Activates rviz is launch with pre-made view.
+world:=     <path_to_world> test.world  Relative path to the simulated world.
+headless:=  True/False      False       Toggle the Gazebo graphical interface. 
+rviz:=      True/False      True        Activates rviz with pre-made view.
 joy:=       True/False      True        Activates controller teleop support.
 slam:=      True/False      True        Activates localization and mapping.
 nav:=       True/False      True        Activates the navigation stack.
@@ -70,7 +83,7 @@ octomap:=   True/False      True        Activates the octomap server.
 
 These configurations are the same no matter the robot type. Example launch command with custom arguments:
 ```bash 
-ros2 launch sim_bot diff_bot.launch.py rviz:=False slam:=False nav:=False
+ros2 launch sim_bot diff_bot.launch.py headless:=True joy:=False nav:=False
 ```
 
 
@@ -105,5 +118,4 @@ ros2 launch sim_bot diff_bot.launch.py
 
 ## TODO 
 Package is still being worked on, however the core funtionality is pretty much done, will be adding some things over the next couple of days.
- - [ ] add ackerman 
- - [ ] update readme 
+ - [ ] port ackerman robot (available on `humble` and `foxy`)
