@@ -15,6 +15,7 @@
   <depend>ros-humble-slam-toolbox</depend>
   <depend>ros-humble-navigation2</depend>     
   <depend>ros-humble-ros-gz</depend>
+  <depend>ros-humble-octomap</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

@@ -19,7 +19,8 @@ def generate_launch_description():
     rviz = LaunchConfiguration('rviz')
     slam = LaunchConfiguration('slam')
     nav = LaunchConfiguration('nav')
-        
+    octomap = LaunchConfiguration('octomap')
+
     # Path to default world 
     world_path = os.path.join(get_package_share_directory(package_name),'worlds', 'test.world')
 
@@ -43,7 +44,11 @@ def generate_launch_description():
     declare_nav = DeclareLaunchArgument(
         name='nav', default_value='True',
         description='Activates the navigation stack')
-     
+
+    declare_octomap = DeclareLaunchArgument(
+        name='octomap', default_value='True',
+        description='Activates 3D mapping if set to true')
+
     # Launch Robot State Publisher
     urdf_path = os.path.join(get_package_share_directory(package_name),'description','diff_bot.urdf.xacro')
     rsp = IncludeLaunchDescription(
@@ -146,6 +151,19 @@ def generate_launch_description():
                     )]), launch_arguments={'use_sim_time': 'true', 'params_file': nav_params}.items())]
     )
 
+    # Launch 3D mapping stack 
+    octomap_node = GroupAction(
+        condition=IfCondition(octomap),
+        actions=[Node(package='octomap_server',
+                      executable='octomap_server_node',
+                      name='octomap_server',
+                      output='screen',
+                      parameters=[{'resolution': 0.05,
+                                   'frame_id': 'odom',
+                                   'sensor_model.max_range': 5.0}],
+                      remappings=[('/cloud_in','/camera/points')])],
+    )
+
     # Launch them all!
     return LaunchDescription([
         # Declare launch arguments
@@ -154,6 +172,7 @@ def generate_launch_description():
         declare_world,
         declare_slam,
         declare_nav,
+        declare_octomap,
 
         # Launch the nodes
         rviz2,
@@ -167,4 +186,5 @@ def generate_launch_description():
         spawn_diff_bot,
         slam_node,
         nav_node,
+        octomap_node
     ])

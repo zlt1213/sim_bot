@@ -29,8 +29,8 @@ def generate_launch_description():
                        'planner_server',
                        'behavior_server',
                        'bt_navigator',
-                       'waypoint_follower'
-                       #'velocity_smoother'
+                       'waypoint_follower',
+                       'velocity_smoother'
     ]
 
     remappings = [('/tf', 'tf'),
@@ -98,7 +98,7 @@ def generate_launch_description():
                 respawn_delay=2.0,
                 parameters=[configured_params],
                 arguments=['--ros-args', '--log-level', log_level],
-                remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
+                remappings=remappings + [('cmd_vel', 'cmd_vel_nav_smoothed')]),
             Node(
                 package='nav2_smoother',
                 executable='smoother_server',
@@ -128,7 +128,7 @@ def generate_launch_description():
                 respawn_delay=2.0,
                 parameters=[configured_params],
                 arguments=['--ros-args', '--log-level', log_level],
-                remappings=remappings + [('cmd_vel', 'cmd_vel_nav')]),
+                remappings=remappings + [('cmd_vel', 'cmd_vel_nav_smoothed')]),
             Node(
                 package='nav2_bt_navigator',
                 executable='bt_navigator',
@@ -218,7 +218,7 @@ def generate_launch_description():
                 name='velocity_smoother',
                 parameters=[configured_params],
                 remappings=remappings +
-                           [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel')]),
+                           [('cmd_vel', 'cmd_vel_nav'), ('cmd_vel_smoothed', 'cmd_vel_nav_smoothed')]),
             ComposableNode(
                 package='nav2_lifecycle_manager',
                 plugin='nav2_lifecycle_manager::LifecycleManager',

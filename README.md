@@ -45,7 +45,7 @@ ros2 launch sim_bot four_wheel.launch.py
 ### Ackermann Robot needs to be ported
 
 ### Controlling the robot
-By default the simulation will also launch a tele_op_joy node will be launched that will listen for a controller(xbox, ps4, etc) input. If that is not a suitable option, the robot can also be controlled with this command:
+By default the simulation will launch a tele_op_joy node that will listen for a controller(xbox, ps4, etc) input. If that is not a suitable option, the robot can also be controlled with the keyboard using this command:
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard 
 ```
@@ -55,10 +55,11 @@ The simulation launch files offer serveral launch configurations to modify its b
 ```bash
 Config      Options         Default     Description
 world:=     <path_to_world> test.world  Relative path to test world                       
-headless:=  True/False      False       Gazebo is visualized if False
-rviz:=      True/False      True        Rviz is opened if True
-slam:=      True/False      True        Localization and mapping is run if True
-nav:=       True/False      True        Navigation stack is launched if True
+headless:=  True/False      False       Toggle the Gazebo graphical interface (visualized if False) 
+rviz:=      True/False      True        Activates rviz is launch with pre-made view
+slam:=      True/False      True        Activates localization and mapping 
+nav:=       True/False      True        Activates the navigation stack  
+octomap:=   True/False      True        Activates the octomap server  
 ```
 
 These configurations are the same no matter the robot type. Example launch command with custom arguments:
@@ -68,13 +69,14 @@ ros2 launch sim_bot diff_bot.launch.py rviz:=False slam:=False nav:=False
 
 
 ## Dependencies
-This packages is designed to be require minimal set-up for robot simulations, so i tried to keep the dependencies to a minimum. xacro is used for urdf flexibility, gazebo is the simulator being used, twist-mux is used so that the robot can listen to multiple topics for velocity commands, and slam-toolbox and navigation2 are a commonly used tools to give autonomy to a robot.
+This package is designed to require minimal set-up for robot simulation, the dependencies are as follows. xacro is used for urdf flexibility, gazebo is the simulator being used, twist-mux is used so that the robot can listen to multiple topics for velocity commands, slam-toolbox is used for localization and mapping, navigation2 is the navigation stack of the robot, and octomap lets us create a 3D representation of the enviroment.
 ```bash
 sudo apt install -y            \
     ros-humble-xacro           \
     ros-humble-twist-mux       \
     ros-humble-navigation2     \
     ros-humble-slam-toolbox    \
+    ros-humble-octomap*        \
     ros-humble-ros-gz          \ 
 ```
 
