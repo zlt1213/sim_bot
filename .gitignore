@@ -1,0 +1,27 @@
+# ROS2
+build/
+install/
+log/
+.colcon_local_setup*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# C++
+*.o
+*.so
+*.out
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
